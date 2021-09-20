@@ -11,9 +11,10 @@ import java.util.UUID;
 public interface ImageService {
     Image addImage(Image image, User user);
     public Optional<Image> ViewImage(final UUID ImageId);
-    Optional<Image> findImageById(final UUID ImageId);
+    Optional<Image> getImageById(final UUID ImageId);
     void changeImageVisibility(UUID imageId);
     void deleteImageById(UUID imageId);
     List<Image> getAllAccessedImage();
     List<Image> getAllImage();
+    List<Image> getImagesByTitle(final String imageTitle);
 }

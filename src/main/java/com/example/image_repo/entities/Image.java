@@ -1,6 +1,5 @@
 package com.example.image_repo.entities;
 
-import com.example.image_repo.entities.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,8 +10,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "image")
 public class Image {
-    @Getter
-    @Setter
+    public static final String IMAGE_NOT_PRESENT_EXCEPTION_MESSAGE = "This image is not currently present in the User's repo";
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -26,8 +25,8 @@ public class Image {
     @Column(name = "imageLink")
     private final String ImageLink;
 
-    @Column(name = "tag")
-    private final String Tag;
+    @Column(name = "title")
+    private final String title;
 
     @Column(name = "price")
     private float price;
@@ -35,21 +34,12 @@ public class Image {
     @Column(name = "permission")
     private Boolean isPublic;
 
-    public Image(String imageName, String imageDate, User user, String imageLink, String Tag, Boolean isPublic) {
+    public Image(String imageName, String imageDate, User user, String imageLink, String title, Boolean isPublic) {
         this.ImageName = imageName;
         this.ImageDate = imageDate;
         this.user = user;
         this.ImageLink = imageLink;
-        this.Tag = Tag;
+        this.title = title;
         this.isPublic = isPublic;
     }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-    public void setPermission(Boolean isPublic){
-        this.isPublic = isPublic;
-    }
-    
-    public Boolean 
 }

@@ -13,30 +13,29 @@ import java.util.List;
 @Table(name = "user")
 public class User {
 
+    public static final String IMAGE_NOT_PRESENT_EXCEPTION_MESSAGE = "This image is not currently present in the User's repo";
+    public static final String IMAGE_ALREADY_PRESENT_EXCEPTION_MESSAGE = "This image is currently already present in the User's repo";
     @Id
     @GeneratedValue()
     private long id;
 
-    @Column(name = "username")
-    private String userName;
-    // password need to be hashed
-    @Column(name = "password")
-    private String password;
-    @Column(name = "admin")
-    private Boolean isAdmin;
-    private ArrayList<String> imageRepo;
-
-    public User(String userName, String password, ArrayList<String> imageRepo) {
-        this.userName = userName;
-        this.password = password;
+    public User(List<Image> imageRepo) {
         this.imageRepo = imageRepo;
-        isAdmin = true;
     }
 
-    public void changeAdmin() {
-        if(isAdmin){
-            isAdmin = false;
-        }
-        isAdmin = true;
+    @Column(name = "admin")
+    private Boolean isAdmin;
+    private List<Image> imageRepo = new ArrayList<>();
+
+
+    public void addImage(final Image image){
+        if (imageRepo.contains(image)) throw new IllegalArgumentException(IMAGE_ALREADY_PRESENT_EXCEPTION_MESSAGE);
+        this.imageRepo.add(image);
+    }
+
+    public void removeImage(final Image image){
+        if (!this.imageRepo.contains(image))
+            throw new IllegalArgumentException(IMAGE_NOT_PRESENT_EXCEPTION_MESSAGE);
+        this.imageRepo.remove(image);
     }
 }

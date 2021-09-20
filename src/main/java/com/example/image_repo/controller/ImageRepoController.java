@@ -8,13 +8,17 @@ import com.example.image_repo.repository.JpaUserRepository;
 import com.example.image_repo.service.ImageService;
 import com.example.image_repo.service.UserService;
 import com.example.image_repo.service.impl.ImageServiceImpl;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.condition.ParamsRequestCondition;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
+@RequestMapping(value = "/images")
 public class ImageRepoController {
     public static final String IMAGE_DOES_NOT_EXIST_ERROR_MESSAGE = "This image does not exist in the database.";
 
@@ -27,29 +31,35 @@ public class ImageRepoController {
     public ImageRepoController(ImageService imageService){
 
         this.imageService = imageService;
-        this.userService = userService;
     }
 
     @GetMapping("/")
     public void hello_world() {
 //        return null;
     }
+
+    @GetMapping("permissionOnly")
+    public List<Image> getPublicImages(@RequestParam(required = false, defaultValue = "false") final boolean isPublic){
+        if (isPublic) return imageService.getAllAccessedImage();
+        else return getAllImage();
+    }
+
+    @GetMapping()
+    public List<Image> getAllImage(){
+        return imageService.getAllImage();
+    }
+
+    @GetMapping(params = "imageTitle")
+    public List<Image> getImageByTitle(@RequestParam(required = false) final String imageTitle){
+        // todo: check if the string is null or blank string
+        return imageService.getImagesByTitle(imageTitle);
+    }
+
     @GetMapping("{imageId}")
     public Image viewImage(@PathVariable final UUID imageId){
         Optional<Image> image = imageService.ViewImage(imageId);
         if (!image.isPresent()) throw new IllegalArgumentException(IMAGE_DOES_NOT_EXIST_ERROR_MESSAGE);
         return image.get();
-    }
-    @DeleteMapping("{imageId}")
-    public Image deleteImage(@PathVariable final UUID imageId){
-        Optional<Image> image = imageService.ViewImage(imageId);
-        imageService.deleteImageById(imageId);
-        return image.get();
-    }
-
-    @GetMapping(params = "showRepo")
-    public ArrayList<Image> getImageInRepo(@RequestParam(required = false, defaultValue = "false") final Boolean showAdminRepoOnly){
-        if (showAdminRepoOnly) return imageService
     }
 //    @GetMapping("{imageTag}")
 //    public Image viewImageByTag(@PathVariable final UUID imageId){

@@ -7,10 +7,10 @@ import com.example.image_repo.repository.JpaUserRepository;
 import com.example.image_repo.service.ImageService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public abstract class ImageServiceImpl implements ImageService {
@@ -35,7 +35,7 @@ public abstract class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public Optional<Image> findImageById(UUID imageId) {
+    public Optional<Image> getImageById(UUID imageId) {
         return imageRepository.findById(imageId);
     }
 
@@ -46,17 +46,28 @@ public abstract class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public ArrayList<Image> getAllAccessedImage(){
+    public List<Image> getAllAccessedImage(){
         return imageRepository.findAll()
                 .stream()
-                .filter(Image::)
+                .filter(Image::getIsPublic)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Image> getAllImage(){
         return imageRepository.findAll();
     }
-//    @Override
+
+    @Override
+    public List<Image> getImagesByTitle(String imageTitle) {
+        return imageRepository.findAll()
+                .stream()
+                .filter(image -> image.getTitle().equals(imageTitle))
+                .collect(Collectors.toList());
+    }
+
+
+    //    @Override
 //    public Image uploadImage(Image image) {
 //        return jpaImageRepository.save(image);
 //    }
