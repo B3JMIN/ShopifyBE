@@ -2,7 +2,7 @@ version: '2'
 
 services:
   app:
-    image: 'demo:latest'
+    image: 'docker-spring-boot-postgre:latest'
     build:
       context: .
     container_name: app
@@ -15,7 +15,7 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
 
   db:
-    image: 'postgres'
+    image: 'library/postgres:13.1-alpine'
     container_name: db
     environment:
       - POSTGRES_USER=compose-postgres
