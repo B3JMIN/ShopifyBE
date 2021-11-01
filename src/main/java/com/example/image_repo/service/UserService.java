@@ -1,7 +1,7 @@
 package com.example.image_repo.service;
 
-import com.example.image_repo.entities.Image;
-import com.example.image_repo.entities.User;
+import com.example.image_repo.models.Image;
+import com.example.image_repo.models.User;
 
 import java.util.List;
 import java.util.Optional;

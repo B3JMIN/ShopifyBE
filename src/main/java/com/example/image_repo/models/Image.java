@@ -1,13 +1,15 @@
-package com.example.image_repo.entities;
+package com.example.image_repo.models;
 
 import lombok.*;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.*;
 //import java.util.UUID;
 
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 @Table(name = "image")
 public class Image {
     public static final String IMAGE_NOT_PRESENT_EXCEPTION_MESSAGE = "This image is not currently present in the User's repo";
@@ -42,4 +44,20 @@ public class Image {
         this.title = title;
         this.isPublic = isPublic;
     }
+
+    public Boolean getIsPublic(){
+        return this.isPublic;
+    }
+
+    public void setIsPublic(Boolean visibility){
+        this.isPublic = visibility;
+    }
+    public String getTitle(){
+        return this.title;
+    }
+
+    public void setPrice(float price){
+        this.price = price;
+    }
+
 }

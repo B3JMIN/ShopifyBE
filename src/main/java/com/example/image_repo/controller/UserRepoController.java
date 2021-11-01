@@ -1,10 +1,8 @@
 package com.example.image_repo.controller;
 
 
-import com.example.image_repo.entities.Image;
-import com.example.image_repo.entities.User;
-import com.example.image_repo.repository.JpaImageRepository;
-import com.example.image_repo.repository.JpaUserRepository;
+import com.example.image_repo.models.Image;
+import com.example.image_repo.models.User;
 import com.example.image_repo.service.ImageService;
 import com.example.image_repo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

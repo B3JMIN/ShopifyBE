@@ -1,8 +1,8 @@
 package com.example.image_repo.service.impl;
 
-import com.example.image_repo.entities.Image;
+import com.example.image_repo.models.Image;
 import com.example.image_repo.repository.JpaImageRepository;
-import com.example.image_repo.entities.User;
+import com.example.image_repo.models.User;
 import com.example.image_repo.repository.JpaUserRepository;
 import com.example.image_repo.service.ImageService;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 public abstract class ImageServiceImpl implements ImageService {
 
     private JpaImageRepository imageRepository;
-    private JpaUserRepository userRepository;
     @Override
     public Image addImage(Image image, User user) {
         imageRepository.save(image);
@@ -40,9 +39,9 @@ public abstract class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public void changeImageVisibility(UUID imageId) {
+    public void changeImageVisibility(UUID imageId, Boolean visibility) {
         Image image = imageRepository.findById(imageId).orElse(null);
-//        return null;
+        image.setIsPublic(visibility);
     }
 
     @Override
@@ -65,38 +64,4 @@ public abstract class ImageServiceImpl implements ImageService {
                 .filter(image -> image.getTitle().equals(imageTitle))
                 .collect(Collectors.toList());
     }
-
-
-    //    @Override
-//    public Image uploadImage(Image image) {
-//        return jpaImageRepository.save(image);
-//    }
-//
-//    @Override
-//    public void deleteImageById(UUID imageId) {
-////        Optional<Image> foundImage = jpaImageRepository.findById(imageId);
-//        jpaImageRepository.deleteById(imageId);
-//    }
-//
-//    @Override
-//    public List<Image> deleteImageByUser(User user) {
-//        return null;
-//        if(jpaImageRepository.findByUser(user) == null){
-//            return null;
-//        }
-//        else{
-//            return jpaImageRepository.findByUser(user);
-//        }
-    }
-//
-//    @Override
-//    public Optional<Image> findImageById(UUID imageId) {
-//        return jpaImageRepository.findById(imageId);
-//    }
-//
-//    @Override
-//    public List<Image> findAllImages() {
-//        return jpaImageRepository.findAll();
-//    }
-//
-//}
+}

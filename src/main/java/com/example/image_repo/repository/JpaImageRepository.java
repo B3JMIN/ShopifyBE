@@ -1,7 +1,7 @@
 package com.example.image_repo.repository;
 
-import com.example.image_repo.entities.Image;
-import com.example.image_repo.entities.User;
+import com.example.image_repo.models.Image;
+import com.example.image_repo.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

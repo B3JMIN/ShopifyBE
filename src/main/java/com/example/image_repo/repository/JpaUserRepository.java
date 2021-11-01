@@ -1,6 +1,6 @@
 package com.example.image_repo.repository;
 
-import com.example.image_repo.entities.User;
+import com.example.image_repo.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

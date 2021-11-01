@@ -1,13 +1,12 @@
 package com.example.image_repo.service.impl;
 
-import com.example.image_repo.entities.Image;
-import com.example.image_repo.entities.User;
+import com.example.image_repo.models.Image;
+import com.example.image_repo.models.User;
 import com.example.image_repo.repository.JpaImageRepository;
 import com.example.image_repo.repository.JpaUserRepository;
 import com.example.image_repo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import lombok.*;
 
 import java.util.Collections;
 import java.util.List;

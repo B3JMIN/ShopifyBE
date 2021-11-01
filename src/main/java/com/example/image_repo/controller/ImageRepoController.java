@@ -1,20 +1,12 @@
 package com.example.image_repo.controller;
 
-//import com.example.image_repo.entities.Image;
-//import com.example.image_repo.service.ShowImage;
-import com.example.image_repo.entities.Image;
-import com.example.image_repo.repository.JpaImageRepository;
-import com.example.image_repo.repository.JpaUserRepository;
+import com.example.image_repo.models.Image;
 import com.example.image_repo.service.ImageService;
 import com.example.image_repo.service.UserService;
-import com.example.image_repo.service.impl.ImageServiceImpl;
-import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.condition.ParamsRequestCondition;
 
-import java.text.SimpleDateFormat;
+import javax.annotation.PostConstruct;
 import java.util.*;
 
 @RestController
@@ -24,19 +16,13 @@ public class ImageRepoController {
 
     private ImageService imageService;
     private UserService userService;
-//    private JpaImageRepository imageRepository;
-//    private JpaUserRepository userRepository;
 
     @Autowired
-    public ImageRepoController(ImageService imageService){
-
+    public ImageRepoController(final ImageService imageService, final UserService userService){
+        this.userService = userService;
         this.imageService = imageService;
     }
 
-    @GetMapping("/")
-    public void hello_world() {
-//        return null;
-    }
 
     @GetMapping("permissionOnly")
     public List<Image> getPublicImages(@RequestParam(required = false, defaultValue = "false") final boolean isPublic){
